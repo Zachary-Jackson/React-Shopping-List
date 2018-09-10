@@ -1,4 +1,7 @@
-.App {
-  font-family: sans-serif;
+body {
+  background-color: silver;
+}
+
+.center {
   text-align: center;
 }
