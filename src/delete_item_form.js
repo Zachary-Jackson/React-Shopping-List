@@ -4,8 +4,12 @@ import React from "react";
  * This is a text form component that allows a user to sumbit items found in props.items
  * It uses predictive searching to assist the user in selecting an item
  *
- * :prop items: An array of items that can be deleted
- * :prop handleSubmit: A function that will get called whith a valid form
+ * :prop items: An array of items that can be submitted
+ * :prop handleSubmit: A function that will get called with a valid form
+ *
+ * :state message: The help message showing the user the input predictions
+ * :state valid: Changes whether or not the input button is valid
+ * :state value: The input form's value
  */
 export default class DeleteItemForm extends React.Component {
   constructor(props) {
@@ -13,11 +17,22 @@ export default class DeleteItemForm extends React.Component {
 
     this.state = {
       message: "Please enter some an item to delete",
-      predictedWord: null,
       valid: true,
       value: ""
     };
   }
+
+  _getClassName = valid => {
+    /**
+     * Returns the style "delete if valid"
+     *
+     * :param valid: Boolien
+     * :return: "delete" if valid
+     */
+    if (valid) {
+      return "delete";
+    }
+  };
 
   createMessage(wordList, word) {
     /**
@@ -98,12 +113,13 @@ export default class DeleteItemForm extends React.Component {
 
   render() {
     /* Renders a text form */
+    const valid = this.state.itemValid;
 
     return (
       <form className="vertical-padding" onSubmit={this.props.handleSubmit}>
         <label>
           <div>{this.state.message}</div>
-          Delete:
+          Delete item:
           <input
             type="text"
             value={this.state.value}
@@ -111,7 +127,12 @@ export default class DeleteItemForm extends React.Component {
             name="deletedItem"
           />
         </label>
-        <input type="submit" value="Submit" disabled={!this.state.itemValid} />
+        <input
+          className={this._getClassName(valid)}
+          type="submit"
+          value="Delete"
+          disabled={!valid}
+        />
       </form>
     );
   }

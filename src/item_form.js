@@ -2,10 +2,13 @@ import React from "react";
 
 /**
  * This is a text form component that ensures the user can not enter
- * any text that is invalid
+ * any text that is props.items
  *
  * :prop items: An array of items that can not be submitted
- * :prop handleSubmit: A function that will get called whith a valid form
+ * :prop handleSubmit: A function that will get called with a valid form
+ *
+ * :state valid: Changes whether or not the input button is valid
+ * :state value: The input form's value
  */
 export default class ItemForm extends React.Component {
   constructor(props) {
@@ -61,7 +64,7 @@ export default class ItemForm extends React.Component {
             name="newItem"
           />
         </label>
-        <input type="submit" value="Submit" disabled={!this.state.itemValid} />
+        <input type="submit" value="Add" disabled={!this.state.itemValid} />
       </form>
     );
   }

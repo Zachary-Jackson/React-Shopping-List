@@ -6,6 +6,12 @@ import ItemForm from "./item_form.js";
 
 import "./styles.css";
 
+/**
+ * A list program that allows user's to add and delete items
+ *
+ * :state items: All of the items on the list
+ * :state formKeys: All of the forms and their associated keys
+ */
 class List extends React.Component {
   state = {
     items: ["apple", "coconut", "kiwi", "pear", "pineapple", "plum"],
