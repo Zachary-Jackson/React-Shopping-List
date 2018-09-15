@@ -1,4 +1,5 @@
 import React from "react";
+
 /**
  * This is a text form component that ensures the user can not enter
  * any text that is invalid
