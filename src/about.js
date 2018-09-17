@@ -3,7 +3,7 @@ import React from "react";
 import "./styles.css";
 
 /**
- * An about page template
+ * An about page template which is the same as the README.md
  */
 export default class List extends React.Component {
   render() {
@@ -21,6 +21,7 @@ export default class List extends React.Component {
             predicting items to delete, preventing invalid letters from being
             typed, and when a new item can be submitted.
           </li>
+          <li>Setting browser cookies to save the user's list</li>
           <li>Reusable components</li>
           <li>React router routing</li>
         </ul>

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 /**
  * This is a text form component that allows a user to sumbit items found in props.items
@@ -12,6 +13,11 @@ import React from "react";
  * :state value: The input form's value
  */
 export default class DeleteItemForm extends React.Component {
+  static propTypes = {
+    items: PropTypes.array.isRequired,
+    handleSubmit: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
 

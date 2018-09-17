@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 /**
  * This is a text form component that ensures the user can not enter
@@ -11,6 +12,11 @@ import React from "react";
  * :state value: The input form's value
  */
 export default class ItemForm extends React.Component {
+  static propTypes = {
+    items: PropTypes.array.isRequired,
+    handleSubmit: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
 

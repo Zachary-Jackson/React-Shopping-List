@@ -1,4 +1,6 @@
+import { instanceOf } from "prop-types";
 import React from "react";
+import { Cookies } from "react-cookie";
 
 import DeleteItemForm from "./delete_item_form.js";
 import ItemForm from "./item_form.js";
@@ -10,10 +12,29 @@ import ItemForm from "./item_form.js";
  * :state formKeys: All of the forms and their associated keys
  */
 export default class List extends React.Component {
-  state = {
-    items: ["apple", "coconut", "kiwi", "pear", "pineapple", "plum"],
-    formKeys: [1, 2]
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
   };
+
+  constructor(props) {
+    super(props);
+
+    const { cookies } = props;
+    this.state = {
+      items: cookies.get("items") || [
+        "apple",
+        "coconut",
+        "kiwi",
+        "pear",
+        "pineapple",
+        "plum"
+      ],
+      itemsSaved: true,
+      formKeys: [1, 2]
+    };
+  }
+
+  state = {};
 
   handleItemDelete = event => {
     /**
@@ -28,7 +49,8 @@ export default class List extends React.Component {
     // Get a new state.items without the deletedItem
     const newItems = oldItems.filter(word => word !== deletedItem);
     this.setState({
-      items: newItems
+      items: newItems,
+      itemsSaved: false
     });
 
     this.renewKeys();
@@ -46,10 +68,24 @@ export default class List extends React.Component {
     this.state.items.push(newItem);
     const sortedArray = this.state.items.sort();
     this.setState({
-      items: sortedArray
+      items: sortedArray,
+      itemsSaved: false
     });
 
     this.renewKeys();
+  };
+
+  onSave = event => {
+    /**
+     * Takes the existing this.state.items and saves it as a cookie for later use
+     *
+     */
+    const { cookies } = this.props;
+
+    cookies.set("items", this.state.items);
+    this.setState({
+      itemsSaved: true
+    });
   };
 
   renewKeys() {
@@ -77,6 +113,7 @@ export default class List extends React.Component {
     return (
       <div className="width-60">
         <div className="center">
+          <p>{this.state.name}</p>
           <ol>
             <div>{listItems}</div>
           </ol>
@@ -91,6 +128,13 @@ export default class List extends React.Component {
             handleSubmit={this.handleItemDelete}
           />
         </div>
+        <button
+          type="button"
+          disabled={this.state.itemsSaved}
+          onClick={this.onSave}
+        >
+          Save List
+        </button>
       </div>
     );
   }
