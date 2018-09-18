@@ -19,11 +19,6 @@ body {
   text-align: left;
 }
 
-.vertical-padding {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
 .width-60 {
   max-width: 60%;
   margin-left: 20%;

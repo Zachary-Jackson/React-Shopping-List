@@ -8,13 +8,12 @@ import "./styles.css";
 export default class List extends React.Component {
   render() {
     return (
-      <div className="paragraph-70-width">
-        <h3>React Shopping List</h3>
+      <div className="paragraph-70-width my-3 bg-light border border-primary rounded">
         <p>
           This is a shopping list application where the user can add and delete
-          items from a shopping list<br />with automated assistance.
+          items from a shopping list with automated assistance.
         </p>
-        <h3>Features include</h3>
+        <h2>Features include</h2>
         <ul>
           <li>
             Automated suggestions and handling of user input. This includes
@@ -25,7 +24,12 @@ export default class List extends React.Component {
           <li>Reusable components</li>
           <li>React router routing</li>
         </ul>
-        <p>&nbsp;</p>
+        <h2>Technologies used</h2>
+        <ul>
+          <li>Bootstrap 4</li>
+          <li>React-Cookie</li>
+          <li>React-Router</li>
+        </ul>
       </div>
     );
   }

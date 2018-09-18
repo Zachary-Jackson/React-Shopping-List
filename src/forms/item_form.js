@@ -74,7 +74,7 @@ export default class ItemForm extends React.Component {
     /* Renders a text form */
 
     return (
-      <form onSubmit={this.props.handleSubmit}>
+      <form className="py-2" onSubmit={this.props.handleSubmit}>
         <label>
           New item:
           <input

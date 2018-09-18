@@ -23,10 +23,6 @@ class App extends React.Component {
     cookies: instanceOf(Cookies).isRequired
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>

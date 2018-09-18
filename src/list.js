@@ -2,8 +2,8 @@ import { instanceOf } from "prop-types";
 import React from "react";
 import { Cookies } from "react-cookie";
 
-import DeleteItemForm from "./delete_item_form.js";
-import ItemForm from "./item_form.js";
+import DeleteItemForm from "./forms/delete_item_form.js";
+import ItemForm from "./forms/item_form.js";
 
 /**
  * A list program that allows user's to add and delete items

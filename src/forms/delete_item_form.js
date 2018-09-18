@@ -22,7 +22,7 @@ export default class DeleteItemForm extends React.Component {
     super(props);
 
     this.state = {
-      message: "Please enter some an item to delete",
+      message: "Please enter some item to delete",
       valid: true,
       value: ""
     };
@@ -124,7 +124,7 @@ export default class DeleteItemForm extends React.Component {
     const valid = this.state.itemValid;
 
     return (
-      <form className="vertical-padding" onSubmit={this.props.handleSubmit}>
+      <form className="py-2" onSubmit={this.props.handleSubmit}>
         <label>
           <div>{this.state.message}</div>
           Delete item:
