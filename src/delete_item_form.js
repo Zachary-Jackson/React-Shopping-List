@@ -30,13 +30,15 @@ export default class DeleteItemForm extends React.Component {
 
   _getClassName = valid => {
     /**
-     * Returns the style "delete if valid"
+     * Returns a style based on validity
      *
      * :param valid: Boolien
-     * :return: "delete" if valid
+     * :return: a string style
      */
     if (valid) {
-      return "delete";
+      return "btn btn-primary";
+    } else {
+      return "btn btn-secondary";
     }
   };
 

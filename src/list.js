@@ -34,7 +34,19 @@ export default class List extends React.Component {
     };
   }
 
-  state = {};
+  _getClassName = valid => {
+    /**
+     * Returns a style based on validity
+     *
+     * :param valid: Boolien
+     * :return: a string style
+     */
+    if (valid) {
+      return "btn btn-light border border-primary mb-4";
+    } else {
+      return "btn btn-primary mb-4";
+    }
+  };
 
   handleItemDelete = event => {
     /**
@@ -111,7 +123,7 @@ export default class List extends React.Component {
     });
 
     return (
-      <div className="width-60">
+      <div className="width-60 my-3 bg-light border border-primary rounded">
         <div className="center">
           <p>{this.state.name}</p>
           <ol>
@@ -129,6 +141,7 @@ export default class List extends React.Component {
           />
         </div>
         <button
+          className={this._getClassName(this.state.itemsSaved)}
           type="button"
           disabled={this.state.itemsSaved}
           onClick={this.onSave}

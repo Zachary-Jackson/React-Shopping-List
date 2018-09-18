@@ -26,6 +26,20 @@ export default class ItemForm extends React.Component {
     };
   }
 
+  _getClassName = valid => {
+    /**
+     * Returns a style based on validity
+     *
+     * :param valid: Boolien
+     * :return: a string style
+     */
+    if (valid) {
+      return "btn btn-primary";
+    } else {
+      return "btn btn-secondary";
+    }
+  };
+
   itemValid(item) {
     /**
      * Checks to see if an item is empty or in self.state.items
@@ -70,7 +84,12 @@ export default class ItemForm extends React.Component {
             name="newItem"
           />
         </label>
-        <input type="submit" value="Add" disabled={!this.state.itemValid} />
+        <input
+          className={this._getClassName(this.state.itemValid)}
+          type="submit"
+          value="Add"
+          disabled={!this.state.itemValid}
+        />
       </form>
     );
   }
