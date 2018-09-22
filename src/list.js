@@ -8,6 +8,7 @@ import ItemForm from "./forms/item_form.js";
 /**
  * A list program that allows user's to add and delete items
  *
+ * :state groups: All of the groups an item can be
  * :state items: All of the items on the list
  * :state formKeys: All of the forms and their associated keys
  */
@@ -21,13 +22,28 @@ export default class List extends React.Component {
 
     const { cookies } = props;
     this.state = {
+      groups: ["bakery", "dairy", "fruit", "meat"],
       items: cookies.get("items") || [
-        "apple",
-        "coconut",
-        "kiwi",
-        "pear",
-        "pineapple",
-        "plum"
+        {
+          name: "apple",
+          group: "fruit",
+          description: "Grown on an apple tree"
+        },
+        {
+          name: "coconut",
+          group: "fruit",
+          description: "Seed of a coconut tree"
+        },
+        {
+          name: "milk",
+          group: "dairy",
+          description: "Comes from nuts, seeds, grains, or cows"
+        },
+        {
+          name: "whole grain tortillas",
+          group: "bakery",
+          description: "Use for tacos"
+        }
       ],
       itemsSaved: true,
       formKeys: [1, 2]
@@ -59,7 +75,7 @@ export default class List extends React.Component {
     const oldItems = this.state.items;
 
     // Get a new state.items without the deletedItem
-    const newItems = oldItems.filter(word => word !== deletedItem);
+    const newItems = oldItems.filter(word => word["name"] !== deletedItem);
     this.setState({
       items: newItems,
       itemsSaved: false
@@ -76,9 +92,15 @@ export default class List extends React.Component {
      */
     event.preventDefault();
     const newItem = event.target.elements.newItem.value;
+    const newGroup = event.target.elements.newGroup.value;
 
-    this.state.items.push(newItem);
-    const sortedArray = this.state.items.sort();
+    this.state.items.push({ name: newItem, group: newGroup });
+
+    // Sort this.state.items by the ['name'] key
+    const sortedArray = this.state.items.sort(
+      (a, b) => (a["name"] > b["name"] ? 1 : b["name"] > a["name"] ? -1 : 0)
+    );
+
     this.setState({
       items: sortedArray,
       itemsSaved: false
@@ -117,26 +139,47 @@ export default class List extends React.Component {
   }
 
   render() {
-    // Get all items out of this.state.items and turn them into paragraphs
+    // Get all items out of this.state.items and turn them into HTML elements
     let listItems = this.state.items.map((item, index) => {
-      return <li key={index}>{item}</li>;
+      return [
+        <tr key={index}>
+          <th scope="row">{index + 1}</th>
+          <td>{item["name"]}</td>
+          <td>{item["group"]}</td>
+          <td>{item["description"]}</td>
+        </tr>
+      ];
+    });
+
+    // Prepare an array of items for the forms
+    let formItems = this.state.items.map(item => {
+      return item["name"];
     });
 
     return (
       <div className="width-60 my-3 bg-light border border-primary rounded">
         <div className="center">
-          <p>{this.state.name}</p>
-          <ol>
-            <div>{listItems}</div>
-          </ol>
+          <table className="table">
+            <thead className="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Group</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>{listItems}</tbody>
+          </table>
+
           <ItemForm
             key={this.state.formKeys[0]}
-            items={this.state.items}
+            groups={this.state.groups}
+            items={formItems}
             handleSubmit={this.handleItemSubmit}
           />
           <DeleteItemForm
             key={this.state.formKeys[1]}
-            items={this.state.items}
+            items={formItems}
             handleSubmit={this.handleItemDelete}
           />
         </div>

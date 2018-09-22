@@ -4,10 +4,13 @@ import PropTypes from "prop-types";
 /**
  * This is a text form component that ensures the user can not enter
  * any text that is props.items
+ * Items can not be larger than 25 characters
  *
+ * :prop groups: An array of groups the user can select from
  * :prop items: An array of items that can not be submitted
  * :prop handleSubmit: A function that will get called with a valid form
  *
+ * :state message: The help message showing the user the input predictions
  * :state valid: Changes whether or not the input button is valid
  * :state value: The input form's value
  */
@@ -21,6 +24,7 @@ export default class ItemForm extends React.Component {
     super(props);
 
     this.state = {
+      message: "",
       valid: true,
       value: ""
     };
@@ -55,15 +59,24 @@ export default class ItemForm extends React.Component {
     return true;
   }
 
-  handleChange = event => {
+  handleNameChange = event => {
     /**
      * Sets the state of newItemInput/newItemValid
      *
      * :event: takes a standard event value
      */
-    this.setState({
-      value: event.target.value
-    });
+    const userImput = event.target.value;
+    if (userImput.length < 25) {
+      this.setState({
+        message: "",
+        value: event.target.value
+      });
+    } else {
+      this.setState({
+        message: "You have reached the 25 character limit!"
+      });
+    }
+
     const valid = this.itemValid(event.target.value);
     this.setState({
       itemValid: valid
@@ -73,17 +86,35 @@ export default class ItemForm extends React.Component {
   render() {
     /* Renders a text form */
 
+    // Get all items out of this.props.groups and turn them into HTML elements
+    let groupItems = this.props.groups.map((group, index) => {
+      return [<option>{group}</option>];
+    });
+
     return (
       <form className="py-2" onSubmit={this.props.handleSubmit}>
-        <label>
-          New item:
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-            name="newItem"
-          />
-        </label>
+        <div>{this.state.message}</div>
+
+        <div class="col">
+          <label>
+            New item:
+            <input
+              name="newItem"
+              onChange={this.handleNameChange}
+              type="text"
+              value={this.state.value}
+            />
+          </label>
+        </div>
+        <div class="col">
+          <div class="">
+            <label>Group</label>
+            <select name="newGroup" class="">
+              {groupItems}
+            </select>
+          </div>
+        </div>
+
         <input
           className={this._getClassName(this.state.itemValid)}
           type="submit"

@@ -22,7 +22,7 @@ export default class DeleteItemForm extends React.Component {
     super(props);
 
     this.state = {
-      message: "Please enter some item to delete",
+      message: "Please enter an item to delete",
       valid: true,
       value: ""
     };
@@ -62,7 +62,7 @@ export default class DeleteItemForm extends React.Component {
       }
     } else {
       this.setState({
-        message: "Please enter some an item to delete"
+        message: "Please enter an item to delete"
       });
     }
   }
