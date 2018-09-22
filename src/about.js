@@ -13,6 +13,14 @@ export default class List extends React.Component {
           This is a shopping list application where the user can add and delete
           items from a shopping list with automated assistance.
         </p>
+
+        <h2>Usage tips</h2>
+        <ul>
+          <li>
+            Use the Tab key to quickly go to the next element in the form.
+          </li>
+        </ul>
+
         <h2>Features include</h2>
         <ul>
           <li>
@@ -24,6 +32,7 @@ export default class List extends React.Component {
           <li>Reusable components</li>
           <li>React router routing</li>
         </ul>
+
         <h2>Technologies used</h2>
         <ul>
           <li>Bootstrap 4</li>

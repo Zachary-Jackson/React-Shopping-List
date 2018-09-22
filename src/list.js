@@ -93,8 +93,13 @@ export default class List extends React.Component {
     event.preventDefault();
     const newItem = event.target.elements.newItem.value;
     const newGroup = event.target.elements.newGroup.value;
+    const newDescription = event.target.elements.newDescription.value;
 
-    this.state.items.push({ name: newItem, group: newGroup });
+    this.state.items.push({
+      description: newDescription,
+      name: newItem,
+      group: newGroup
+    });
 
     // Sort this.state.items by the ['name'] key
     const sortedArray = this.state.items.sort(
