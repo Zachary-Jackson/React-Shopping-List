@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { getClassName, itemNotInArrayOrEmpty } from "./form_helpers.js";
+
 /**
  * This is a text form component that ensures the user can not enter
  * any text that is props.items
@@ -31,35 +33,6 @@ export default class ItemForm extends React.Component {
       valid: true,
       value: ""
     };
-  }
-
-  _getClassName = valid => {
-    /**
-     * Returns a style based on validity
-     *
-     * :param valid: Boolien
-     * :return: a string style
-     */
-    if (valid) {
-      return "btn btn-primary";
-    } else {
-      return "btn btn-secondary";
-    }
-  };
-
-  itemValid(item) {
-    /**
-     * Checks to see if an item is empty or in self.state.items
-     *
-     * :param item: String value of an item
-     * :return : Boolien True if not empty or in self.state.items
-     */
-    if (item === "") {
-      return false;
-    } else if (this.props.items.includes(item)) {
-      return false;
-    }
-    return true;
   }
 
   handleDescriptionChange = event => {
@@ -99,7 +72,7 @@ export default class ItemForm extends React.Component {
       });
     }
 
-    const valid = this.itemValid(event.target.value);
+    const valid = itemNotInArrayOrEmpty(this.props.items, event.target.value);
     this.setState({
       itemValid: valid
     });
@@ -154,7 +127,7 @@ export default class ItemForm extends React.Component {
 
         <input
           autoComplete="off"
-          className={this._getClassName(this.state.itemValid)}
+          className={getClassName(this.state.itemValid)}
           type="submit"
           value="Add"
           disabled={!this.state.itemValid}

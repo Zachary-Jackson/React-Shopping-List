@@ -2,6 +2,20 @@
  * Various helper functions for the forms live here.
  */
 
+export function getClassName(valid) {
+  /**
+   * Returns a style based on validity
+   *
+   * :param valid: Boolien
+   * :return: a string style intended for a className
+   */
+  if (valid) {
+    return "btn btn-primary";
+  } else {
+    return "btn btn-secondary";
+  }
+}
+
 export function itemInArray(itemList, item) {
   /**
    * Checks to see if an item is empty or in self.state.items
@@ -15,6 +29,22 @@ export function itemInArray(itemList, item) {
     return true;
   }
   return false;
+}
+
+export function itemNotInArrayOrEmpty(itemArray, item) {
+  /**
+   * Checks to see if an item is empty or in itemArray
+   *
+   * :param itemArray: An array used to check if item is in it
+   * :param item: String value of an item
+   * :return : Boolien True if not empty or in self.state.items
+   */
+  if (item === "") {
+    return false;
+  } else if (itemArray.includes(item)) {
+    return false;
+  }
+  return true;
 }
 
 export function predictWords(possibleWords, word) {

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { itemInArray, predictWords } from "./form_helpers.js";
+import { getClassName, itemInArray, predictWords } from "./form_helpers.js";
 
 /**
  * This is a text form component that allows a user to sumbit items found in props.items
@@ -29,20 +29,6 @@ export default class DeleteItemForm extends React.Component {
       value: ""
     };
   }
-
-  _getClassName = valid => {
-    /**
-     * Returns a style based on validity
-     *
-     * :param valid: Boolien
-     * :return: a string style
-     */
-    if (valid) {
-      return "btn btn-primary";
-    } else {
-      return "btn btn-secondary";
-    }
-  };
 
   createMessage(wordList, word) {
     /**
@@ -110,7 +96,7 @@ export default class DeleteItemForm extends React.Component {
         </label>
         <input
           autoComplete="off"
-          className={this._getClassName(valid)}
+          className={getClassName(valid)}
           type="submit"
           value="Delete"
           disabled={!valid}
