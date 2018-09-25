@@ -5,6 +5,9 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "enzyme": "3.6.0",
+    "expect": "23.6.0",
+    "mocha": "5.2.0",
     "prop-types": "15.6.2",
     "react": "16.4.2",
     "react-cookie": "3.0.4",
@@ -16,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "mocha './scr/**/*.spec.js' --compilers js:babel-core/register",
     "eject": "react-scripts eject"
   }
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { itemInArray, predictWords } from "./form_helpers.js";
+
 /**
  * This is a text form component that allows a user to sumbit items found in props.items
  * It uses predictive searching to assist the user in selecting an item
@@ -67,19 +69,6 @@ export default class DeleteItemForm extends React.Component {
     }
   }
 
-  itemValid(item) {
-    /**
-     * Checks to see if an item is empty or in self.state.items
-     *
-     * :param item: String value of an item
-     * :return : Boolien True if found
-     */
-
-    if (this.props.items.includes(item)) {
-      return true;
-    }
-  }
-
   handleChange = event => {
     /**
      * Sets the state of newItemInput/newItemValid
@@ -87,8 +76,8 @@ export default class DeleteItemForm extends React.Component {
      * :event: takes a standard event value
      */
 
-    const predictableWords = this.predictWord(event.target.value);
-    const valid = this.itemValid(event.target.value);
+    const predictableWords = predictWords(this.props.items, event.target.value);
+    const valid = itemInArray(this.props.items, event.target.value);
 
     if (predictableWords.length !== 0) {
       this.setState({
@@ -101,22 +90,6 @@ export default class DeleteItemForm extends React.Component {
     }
 
     this.createMessage(predictableWords, event.target.value);
-  };
-
-  predictWord = word => {
-    /**
-     * Uses props.items to predict what word the user will type next
-     *
-     * :event: takes a standard event value
-     */
-    const userWordLength = word.length;
-    const possibleWords = this.props.items;
-
-    const matchedWords = possibleWords.filter(
-      item => item.slice(0, userWordLength) === word
-    );
-
-    return matchedWords;
   };
 
   render() {
