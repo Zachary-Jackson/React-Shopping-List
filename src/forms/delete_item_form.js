@@ -136,6 +136,7 @@ export default class DeleteItemForm extends React.Component {
           />
         </label>
         <input
+          autoComplete="off"
           className={this._getClassName(valid)}
           type="submit"
           value="Delete"

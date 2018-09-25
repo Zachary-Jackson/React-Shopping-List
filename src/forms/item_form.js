@@ -17,6 +17,7 @@ import PropTypes from "prop-types";
  */
 export default class ItemForm extends React.Component {
   static propTypes = {
+    groups: PropTypes.array.isRequired,
     items: PropTypes.array.isRequired,
     handleSubmit: PropTypes.func.isRequired
   };
@@ -78,11 +79,6 @@ export default class ItemForm extends React.Component {
         message: "Descriptions can only be 25 characters"
       });
     }
-
-    const valid = this.itemValid(event.target.value);
-    this.setState({
-      itemValid: valid
-    });
   };
 
   handleNameChange = event => {
@@ -114,43 +110,41 @@ export default class ItemForm extends React.Component {
 
     // Get all items out of this.props.groups and turn them into HTML elements
     let groupItems = this.props.groups.map((group, index) => {
-      return [<option>{group}</option>];
+      return [<option key={index}>{group}</option>];
     });
 
     return (
       <form className="py-2" onSubmit={this.props.handleSubmit}>
         <div>{this.state.message}</div>
 
-        <div class="col">
+        <div className="col">
           <label>
             New item:
             <input
-              autocomplete="off"
+              autoComplete="off"
               name="newItem"
               onChange={this.handleNameChange}
-              placeholder="papaya"
+              placeholder="passion fruit"
               type="text"
               value={this.state.value}
             />
           </label>
         </div>
 
-        <div class="col">
-          <div class="">
+        <div className="col">
+          <div>
             <label>Group</label>
-            <select name="newGroup" class="">
-              {groupItems}
-            </select>
+            <select name="newGroup">{groupItems}</select>
           </div>
 
-          <div class="col">
+          <div className="col">
             <label>
               Description:
               <input
-                autocomplete="off"
+                autoComplete="off"
                 name="newDescription"
                 onChange={this.handleDescriptionChange}
-                placeholder="native to South America"
+                placeholder="Native to South America"
                 type="text"
                 value={this.state.description}
               />
@@ -159,6 +153,7 @@ export default class ItemForm extends React.Component {
         </div>
 
         <input
+          autoComplete="off"
           className={this._getClassName(this.state.itemValid)}
           type="submit"
           value="Add"
