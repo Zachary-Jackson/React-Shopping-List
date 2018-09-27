@@ -104,7 +104,7 @@ export default class List extends React.Component {
 
     // Sort this.state.items by the ['name'] key
     const sortedArray = this.state.items.sort(
-      (a, b) => (a["name"] > b["name"] ? 1 : b["name"] > a["name"] ? -1 : 0)
+      (a, b) => (a["name"].toLowerCase() > b["name"].toLowerCase() ? 1 : -1)
     );
 
     this.setState({

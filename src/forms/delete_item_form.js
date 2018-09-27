@@ -6,17 +6,12 @@ import { getClassName, itemInArray, predictWords } from "./form_helpers.js";
 /**
  * This is a text form component that allows a user to sumbit items found in props.items
  * It uses predictive searching to assist the user in selecting an item
- *
- * :prop items: An array of items that can be submitted
- * :prop handleSubmit: A function that will get called with a valid form
- *
- * :state message: The help message showing the user the input predictions
- * :state valid: Changes whether or not the input button is valid
- * :state value: The input form's value
  */
 export default class DeleteItemForm extends React.Component {
   static propTypes = {
-    items: PropTypes.array.isRequired,
+    /** Items that the user can submit */
+    items: PropTypes.arrayOf(PropTypes.string).isRequired,
+    /** A function that will get called with a valid form */
     handleSubmit: PropTypes.func.isRequired
   };
 
@@ -24,8 +19,11 @@ export default class DeleteItemForm extends React.Component {
     super(props);
 
     this.state = {
+      /** The help message showing the user the input predictions */
       message: "Please enter an item to delete",
+      /** Changes whether or not the input button is valid */
       valid: true,
+      /** The input form's value */
       value: ""
     };
   }
@@ -84,16 +82,16 @@ export default class DeleteItemForm extends React.Component {
 
     return (
       <form className="py-2" onSubmit={this.props.handleSubmit}>
-        <label>
-          <div>{this.state.message}</div>
-          Delete item:
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-            name="deletedItem"
-          />
-        </label>
+        <div>{this.state.message}</div>
+
+        <input
+          type="text"
+          value={this.state.value}
+          onChange={this.handleChange}
+          name="deletedItem"
+          placeholder="Remove item"
+        />
+
         <input
           autoComplete="off"
           className={getClassName(valid)}

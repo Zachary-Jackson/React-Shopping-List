@@ -34,14 +34,23 @@ export function itemInArray(itemList, item) {
 export function itemNotInArrayOrEmpty(itemArray, item) {
   /**
    * Checks to see if an item is empty or in itemArray
+   * This is a case-insensitive search
    *
    * :param itemArray: An array used to check if item is in it
    * :param item: String value of an item
    * :return : Boolien True if not empty or in self.state.items
    */
+
   if (item === "") {
     return false;
-  } else if (itemArray.includes(item)) {
+  }
+
+  // lower cases itemArray to make it case insensitive
+  const lowerCasedItemArray = itemArray.map(item => {
+    return item.toLowerCase();
+  });
+
+  if (lowerCasedItemArray.includes(item.toLowerCase())) {
     return false;
   }
   return true;

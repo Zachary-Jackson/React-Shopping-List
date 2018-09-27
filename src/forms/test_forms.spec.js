@@ -48,6 +48,7 @@ describe("itemInArray", () => {
  * 1) A blank string
  * 2) An item that is in itemArray
  * 3) Item that is neither blank or in Array
+ * 4) Ensures case insenitivity
  */
 describe("itemNotInArrayOrEmpty", () => {
   it("should find the blank string and return false", () => {
@@ -63,6 +64,11 @@ describe("itemNotInArrayOrEmpty", () => {
   it("should not find the item and return true", () => {
     const valid = itemNotInArrayOrEmpty(["cow", "sheep", "pig"], "lamb");
     expect(valid).toEqual(true);
+  });
+
+  it("should find the case insensitive item and return false", () => {
+    const valid = itemNotInArrayOrEmpty(["cow", "sheep", "PiG"], "pig");
+    expect(valid).toEqual(false);
   });
 });
 

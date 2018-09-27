@@ -1,26 +1,21 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 import { getClassName, itemNotInArrayOrEmpty } from "./form_helpers.js";
 
 /**
  * This is a text form component that ensures the user can not enter
- * any text that is props.items
+ * any text that is in props.items (Case insensitive)
+ *
  * Items/descriptsion can not be larger than 25 characters
- *
- * :prop groups: An array of groups the user can select from
- * :prop items: An array of items that can not be submitted
- * :prop handleSubmit: A function that will get called with a valid form
- *
- * :state description: The user's description
- * :state message: The help message showing the user the input predictions
- * :state valid: Changes whether or not the input button is valid
- * :state value: The input form's value
  */
 export default class ItemForm extends React.Component {
   static propTypes = {
-    groups: PropTypes.array.isRequired,
-    items: PropTypes.array.isRequired,
+    /** Groups that the user can select from */
+    groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+    /** Items that the user can not submit */
+    items: PropTypes.arrayOf(PropTypes.string).isRequired,
+    /** A function that will get called with a valid form */
     handleSubmit: PropTypes.func.isRequired
   };
 
@@ -28,9 +23,13 @@ export default class ItemForm extends React.Component {
     super(props);
 
     this.state = {
+      /** The user's description */
       descripiton: "",
+      /** The help message showing the user the input predictions */
       message: "",
+      /** Changes whether or not the input button is valid */
       valid: true,
+      /** The input form's value */
       value: ""
     };
   }
@@ -91,17 +90,15 @@ export default class ItemForm extends React.Component {
         <div>{this.state.message}</div>
 
         <div className="col">
-          <label>
-            New item:
-            <input
-              autoComplete="off"
-              name="newItem"
-              onChange={this.handleNameChange}
-              placeholder="passion fruit"
-              type="text"
-              value={this.state.value}
-            />
-          </label>
+          <input
+            autoComplete="off"
+            className="mb-2"
+            name="newItem"
+            onChange={this.handleNameChange}
+            placeholder="New item name"
+            type="text"
+            value={this.state.value}
+          />
         </div>
 
         <div className="col">
@@ -111,17 +108,15 @@ export default class ItemForm extends React.Component {
           </div>
 
           <div className="col">
-            <label>
-              Description:
-              <input
-                autoComplete="off"
-                name="newDescription"
-                onChange={this.handleDescriptionChange}
-                placeholder="Native to South America"
-                type="text"
-                value={this.state.description}
-              />
-            </label>
+            <input
+              autoComplete="off"
+              className="mb-2"
+              name="newDescription"
+              onChange={this.handleDescriptionChange}
+              placeholder="Description"
+              type="text"
+              value={this.state.description}
+            />
           </div>
         </div>
 
