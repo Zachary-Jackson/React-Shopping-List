@@ -11,6 +11,7 @@ import ItemForm from "./forms/item_form.js";
  *
  * :state groups: All of the groups an item can be
  * :state items: All of the items on the list
+ * :state itemsSaved: Wither or not the items are saved to a cookie
  * :state formKeys: All of the forms and their associated keys
  */
 export default class List extends React.Component {
@@ -23,7 +24,6 @@ export default class List extends React.Component {
 
     const { cookies } = props;
     this.state = {
-      groups: ["Bakery", "Dairy", "Fruit", "Meat"],
       items: cookies.get("items") || [
         {
           name: "apple",
@@ -42,7 +42,9 @@ export default class List extends React.Component {
         }
       ],
       itemsSaved: true,
-      formKeys: [1, 2]
+      formKeys: [1, 2],
+      groups: ["Bakery", "Dairy", "Fruit", "Meat"],
+      searchingByGroup: "All"
     };
   }
 
@@ -110,6 +112,17 @@ export default class List extends React.Component {
     this.renewKeys();
   };
 
+  handleGroupChange = group => {
+    /**
+     * Uses the given group and changes this.state.searchingByGroup to it
+     *
+     * :group: A string representing a group name
+     */
+    this.setState({
+      searchingByGroup: group
+    });
+  };
+
   onSave = event => {
     /**
      * Takes the existing this.state.items and saves it as a cookie for later use
@@ -166,7 +179,11 @@ export default class List extends React.Component {
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">
-                  <DropdownButton groups={this.state.groups} />
+                  <DropdownButton
+                    handleClick={this.handleGroupChange}
+                    groups={this.state.groups}
+                    selectedGroup={this.state.searchingByGroup}
+                  />
                 </th>
                 <th scope="col">Description</th>
               </tr>

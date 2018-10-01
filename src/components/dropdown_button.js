@@ -19,7 +19,13 @@ import {
 export default class DropdownButton extends React.Component {
   static propTypes = {
     /** Groups that the user can select from */
-    groups: PropTypes.arrayOf(PropTypes.string).isRequired
+    groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+    /** A function that will get called when the dropdown value has changed */
+    handleClick: PropTypes.func.isRequired,
+    /** The value that will be shown on the dropdown button
+     * If the value === 'All' then the button will show 'Groups'
+     */
+    selectedGroup: PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -41,25 +47,41 @@ export default class DropdownButton extends React.Component {
     });
   }
 
-  activateLasers(event) {
-    event.persist();
-    console.log("pew");
-    console.log(event);
-  }
-
   render() {
     // Get all items out of this.props.groups and turn them into HTML elements
     let dropdownOptions = this.props.groups.map((group, index) => {
-      return [<DropdownItem key={index}>{group}</DropdownItem>];
+      return [
+        <DropdownItem
+          onClick={() => {
+            this.props.handleClick(group);
+          }}
+          key={index}
+        >
+          {group}
+        </DropdownItem>
+      ];
     });
+
+    //Determine what the main button name should be
+    if (this.props.selectedGroup === "All") {
+      var buttonName = "Groups";
+    } else {
+      var buttonName = this.props.selectedGroup;
+    }
 
     return (
       <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle caret>Groups</DropdownToggle>
+        <DropdownToggle caret>{buttonName}</DropdownToggle>
         <DropdownMenu>
           {dropdownOptions}
           <DropdownItem divider />
-          <DropdownItem>All groups</DropdownItem>
+          <DropdownItem
+            onClick={() => {
+              this.props.handleClick("All");
+            }}
+          >
+            All groups
+          </DropdownItem>
         </DropdownMenu>
       </ButtonDropdown>
     );
