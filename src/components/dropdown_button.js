@@ -16,7 +16,7 @@ import {
 /**
  * This is a dropdown button that allows the user to select an option
  */
-export default class Example extends React.Component {
+export default class DropdownButton extends React.Component {
   static propTypes = {
     /** Groups that the user can select from */
     groups: PropTypes.arrayOf(PropTypes.string).isRequired
@@ -39,6 +39,12 @@ export default class Example extends React.Component {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
+  }
+
+  activateLasers(event) {
+    event.persist();
+    console.log("pew");
+    console.log(event);
   }
 
   render() {

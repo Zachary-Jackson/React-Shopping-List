@@ -2,7 +2,7 @@ import { instanceOf } from "prop-types";
 import React from "react";
 import { Cookies } from "react-cookie";
 
-import Example from "./dropdown_button.js";
+import DropdownButton from "./components/dropdown_button.js";
 import DeleteItemForm from "./forms/delete_item_form.js";
 import ItemForm from "./forms/item_form.js";
 
@@ -27,23 +27,18 @@ export default class List extends React.Component {
       items: cookies.get("items") || [
         {
           name: "apple",
-          group: "fruit",
+          group: "Fruit",
           description: "Grown on an apple tree"
         },
         {
           name: "coconut",
-          group: "fruit",
+          group: "Fruit",
           description: "Seed of a coconut tree"
         },
         {
           name: "milk",
-          group: "dairy",
+          group: "Dairy",
           description: "Comes from nuts, seeds, grains, or cows"
-        },
-        {
-          name: "whole grain tortillas",
-          group: "bakery",
-          description: "Use for tacos"
         }
       ],
       itemsSaved: true,
@@ -163,7 +158,7 @@ export default class List extends React.Component {
     });
 
     return (
-      <div className="width-60 my-3 bg-light border border-primary rounded">
+      <div className="list-margin my-3 bg-light border border-primary rounded">
         <div className="center">
           <table className="table">
             <thead className="thead-dark">
@@ -171,7 +166,7 @@ export default class List extends React.Component {
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">
-                  <Example groups={this.state.groups} />
+                  <DropdownButton groups={this.state.groups} />
                 </th>
                 <th scope="col">Description</th>
               </tr>

@@ -11,16 +11,44 @@ body {
   margin-right: 10%;
 }
 
-.paragraph-70-width {
-  max-width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
+.paragraph-width {
+  max-width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
   text-indent: 2em;
   text-align: left;
 }
 
-.width-60 {
-  max-width: 60%;
-  margin-left: 20%;
-  margin-right: 20%;
+.list-margin {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+/* Ensures that the lits looks good on both desktop and tablets and phones */
+/* phones under 370 px wide might not quite see everything still*/
+@media all and (max-width: 1000px) {
+  .list-margin {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .paragraph-width {
+    max-width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .list-margin {
+    margin-left: 0%;
+    margin-right: 0%;
+  }
+
+  .paragraph-width {
+    max-width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+    text-indent: 2em;
+    text-align: left;
+  }
 }

@@ -8,7 +8,7 @@ import "./styles.css";
 export default class List extends React.Component {
   render() {
     return (
-      <div className="paragraph-70-width my-3 bg-light border border-primary rounded">
+      <div className="paragraph-width my-3 bg-light border border-primary rounded">
         <p>
           This is a shopping list application where the user can add and delete
           items from a shopping list with automated assistance.
