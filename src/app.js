@@ -4,7 +4,7 @@ import { Link, BrowserRouter as Router, Route } from "react-router-dom";
 
 import { instanceOf } from "prop-types";
 
-import About from "./about.js";
+import About from "./components/about.js";
 import List from "./list.js";
 
 const Links = () => (

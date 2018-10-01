@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./styles.css";
+import "../styles.css";
 
 /**
  * An about page template which is the same as the README.md

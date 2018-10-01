@@ -31,14 +31,14 @@ export default class List extends React.Component {
           description: "Grown on an apple tree"
         },
         {
+          name: "cambozola",
+          group: "Dairy",
+          description: "Brie-style blue cheese"
+        },
+        {
           name: "coconut",
           group: "Fruit",
           description: "Seed of a coconut tree"
-        },
-        {
-          name: "milk",
-          group: "Dairy",
-          description: "Comes from nuts, seeds, grains, or cows"
         }
       ],
       itemsSaved: true,
@@ -153,8 +153,19 @@ export default class List extends React.Component {
   }
 
   render() {
+    // Determines if this.state.items needs to be sorted by a group
+    // If so sort the list
+    const group = this.state.searchingByGroup;
+    if (group !== "All") {
+      var sortedlistItems = this.state.items.filter(item => {
+        if (item["group"] === group) return item;
+      });
+    } else {
+      var sortedlistItems = this.state.items;
+    }
+
     // Get all items out of this.state.items and turn them into HTML elements
-    let listItems = this.state.items.map((item, index) => {
+    let listItems = sortedlistItems.map((item, index) => {
       return [
         <tr key={index}>
           <th scope="row">{index + 1}</th>
