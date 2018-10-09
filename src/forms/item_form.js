@@ -59,8 +59,8 @@ export default class ItemForm extends React.Component {
      *
      * :event: takes a standard event value
      */
-    const userImput = event.target.value;
-    if (userImput.length < 25) {
+    const userInput = event.target.value;
+    if (userInput.length < 25) {
       this.setState({
         message: "",
         value: event.target.value

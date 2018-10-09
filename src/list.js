@@ -176,6 +176,16 @@ export default class List extends React.Component {
       ];
     });
 
+    // If listItems is empty, inform the user
+    if (listItems.length === 0) {
+      listItems = (
+        <tr key={1}>
+          <th scope="row">{"N/A"}</th>
+          <td>{"No Results Found"}</td>
+        </tr>
+      );
+    }
+
     // Prepare an array of items for the forms
     let formItems = this.state.items.map(item => {
       return item["name"];
